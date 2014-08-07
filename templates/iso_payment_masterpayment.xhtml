@@ -1,0 +1,38 @@
+<div id="iso_payment_masterpayment">
+	<h2><?php echo $this->h2; ?></h2>
+	<?php if ($this->alsIFrame): ?>
+		<p class="message">
+		F&uuml;hren Sie die Bezahlung jetzt durch.
+		</p>
+		<iframe src="<?php echo $this->iFrameString; ?>" width="80%" height="800" border="0" name="pay_masterpayment" style="border: 0px; overflow: hidden;" frameborder="no" scrolling="yes" >
+		  <p>Ihr Browser kann leider keine eingebetteten Frames anzeigen:
+		  Sie k&ouml;nnen die eingebettete Seite &uuml;ber den folgenden Verweis
+		  aufrufen: <a href="<?php echo $this->iFrameString; ?>">Hier bezahlen</a></p>
+		</iframe>
+	<?php else: ?>
+		<p class="message">
+		F&uuml;hren Sie die Bezahlung jetzt durch.
+		</p>
+		<form id="payment_form" action="<?php echo $this->invocationUrl; ?>" method="post" onclick="window.open(this.href); return false;">
+			
+			<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+			<?php foreach ($this->params as $paramName => $paramValue): ?>
+			<input type="hidden" name="<?php echo $paramName; ?>" value="<?php echo $paramValue; ?>" />
+			<?php endforeach; ?>
+			<input type="submit" name="submitForm" value="<?php echo $this->submit; ?>" />
+		</form>
+	<?php endif; ?>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.addEvent("domready", function() {
+    $("payment_form").submit();
+});
+//--><!]]>
+</script>
